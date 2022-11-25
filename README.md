@@ -6,7 +6,7 @@ Olá! Aqui você vai encontrar minha máquina de ritmos onde você pode criar ba
 
 ## Instruções
 
-Para funcionar, você vai precisar ter o programa PyCharm instalado. Com isso, basta fazer o download do arquivo "main.py", da fonte "roboto.ttf" e da pasta com os sons, salvá-los no mesmo diretório, abir com o PyCharm e clicar em "Run" (o pequeno triângulo verde no canto superior direito). Prontinho! Já pode criar suas próprias batidas e ser um astro da música eletrônica.
+Para funcionar, você vai precisar ter o programa PyCharm instalado. Com isso, basta fazer o download do arquivo "main.py", da fonte "roboto.ttf" e a pasta com os sons, "sounds" (está tudo na pasta "codigo"). Depois é só salvá-los no mesmo diretório, abir o arquivo "main.py" como projeto no PyCharm e clicar em "Run" (o pequeno triângulo verde no canto superior direito). Prontinho! Já pode criar suas próprias batidas e ser um astro da música eletrônica.
 
 *Obs.:* Não consegui concluir o mecanismo de salvamento e carregamento das batidas. Mas fica como um desafio para você! 😉
 

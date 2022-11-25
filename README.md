@@ -1,5 +1,7 @@
 # Diego's Drummy 1.0
 
+![Drummy](https://github.com/diego-analytics/drum_machine/issues/1#issue-1463900762)
+
 Olá! Aqui você vai encontrar minha máquina de ritmos onde você pode criar batidas utilizando alguns sons de bateria, alterar a velocidade e a quantidade de beats.
 
 ## Instruções

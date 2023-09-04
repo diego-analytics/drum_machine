@@ -102,6 +102,30 @@ class grid():
                 print()
 
 
+# images for buttons
+icon = dict()
+icon['play'] = pygame.image.load('icons/icon_play.png')
+icon['pause'] = pygame.image.load('icons/icon_pause.png')
+icon['loop'] = pygame.image.load('icons/icon_loop.png')
+icon['save'] = pygame.image.load('icons/icon_save.png')
+icon['load'] = pygame.image.load('icons/icon_load.png')
+
+'''image attribution: https://www.flaticon.com/free-icons/metronome'''
+icon['metronome'] = pygame.image.load('icons/icon_metronome.png')
+'''image attribution: https://www.flaticon.com/free-icons/clear'''
+icon['clear'] = pygame.image.load('icons/icon_clear.png')
+
+
+# re-size to fit in button
+icon['play'] = pygame.transform.scale(icon['play'], (90, 90))
+icon['pause'] = pygame.transform.scale(icon['pause'], (90, 90))
+icon['metronome'] = pygame.transform.scale(icon['metronome'], (90, 90))
+icon['loop'] = pygame.transform.scale(icon['loop'], (94, 55))
+icon['save'] = pygame.transform.scale(icon['save'], (40, 40))
+icon['load'] = pygame.transform.scale(icon['load'], (40, 40))
+icon['clear'] = pygame.transform.scale(icon['clear'], (90, 90))
+
+
 # key bindings to constrict what keys will be searched for
 # and gives integer key-codes a name
 bindings = {pygame.K_SPACE: 'space', pygame.K_ESCAPE: 'esc',

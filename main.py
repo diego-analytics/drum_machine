@@ -3,7 +3,6 @@
 import pygame
 import pygame_gui
 from pygame_gui.windows.ui_file_dialog import UIFileDialog
-from pygame_gui.elements.ui_button import UIButton
 import boardSupport
 import virtual_kit
 
@@ -158,7 +157,7 @@ if __name__ == '__main__':
 
     # load drum kit
     kit = virtual_kit.load_Couch_Kit()
-    kit = virtual_kit.load_YamahaRm50()
+    # kit = virtual_kit.load_YamahaRm50()
 
     # load button grid object
     grid = boardSupport.grid(kit.num_insts, 360, 16)
@@ -191,20 +190,28 @@ if __name__ == '__main__':
         # Menu inferior (botões)
         play_pause = pygame.draw.rect(
             screen, gray, [7, HEIGHT-140, 185, 100], 0, 5)
-        play_text = label_font.render('Play/Pause', True, white)
-        screen.blit(play_text, (15, HEIGHT - 120))
+        # play_text = label_font.render('Play/Pause', True, white)
+        # screen.blit(play_text, (15, HEIGHT - 120))
         if playing:
-            play_text2 = medium_font.render('Playing', True, dark_gray)
+            # play_text2 = medium_font.render('Playing', True, dark_gray)
+            screen.blit(boardSupport.icon['play'],
+                        play_pause, (-185 // 4, -5, 100 + 185 // 4, 100))
         else:
-            play_text2 = medium_font.render('Paused', True, dark_gray)
-        screen.blit(play_text2, (20, HEIGHT - 80))
+            # play_text2 = medium_font.render('Paused', True, dark_gray)
+            screen.blit(boardSupport.icon['pause'],
+                        play_pause, (-185 // 4, -5, 100 + 185 // 4, 100))
+        # screen.blit(play_text2, (20, HEIGHT - 80))
+
         # Bpm funcionamento e botão
         bpm_rect = pygame.draw.rect(
             screen, gray, [255, HEIGHT - 140, 250, 100], 5, 5)
-        bpm_text = medium_font.render('Beats Per Minute', True, white)
-        screen.blit(bpm_text, (278, HEIGHT-120))
+        # bpm_text = medium_font.render('Beats Per Minute', True, white)
+        # screen.blit(bpm_text, (278, HEIGHT-120))
+        screen.blit(boardSupport.icon['metronome'],
+                    bpm_rect, (-50, -5, 100 + 50, 100))
         bpm_text2 = label_font.render(f'{grid.bpm}', True, white)
-        screen.blit(bpm_text2, (350, HEIGHT - 90))
+        screen.blit(bpm_text2, (400, HEIGHT - 105))
+
         bpm_add_rect = pygame.draw.rect(
             screen, gray, [510, HEIGHT - 138, 48, 48], 0, 5)
         bpm_sub_rect = pygame.draw.rect(
@@ -216,10 +223,15 @@ if __name__ == '__main__':
         # Beats funcionalidades
         beats_rect = pygame.draw.rect(
             screen, gray, [600, HEIGHT - 140, 250, 100], 5, 5)
-        beats_text = medium_font.render('Beats in Loop', True, white)
-        screen.blit(beats_text, (638, HEIGHT - 120))
-        beats_text2 = label_font.render(f'{grid.beats}', True, white)
-        screen.blit(beats_text2, (720, HEIGHT - 90))
+        # beats_text = medium_font.render('Beats in Loop', True, white)
+        # screen.blit(beats_text, (638, HEIGHT - 120))
+        screen.blit(boardSupport.icon['loop'],
+                    beats_rect, (-80, -30, 200 + 100, 100))
+        beats_count = label_font.render(f'{grid.beats}', True, white)
+        if beats_count.get_width() > 14:
+            screen.blit(beats_count, (713, HEIGHT - 125))
+        else:
+            screen.blit(beats_count, (720, HEIGHT - 125))
         beats_add_rect = pygame.draw.rect(
             screen, gray, [855, HEIGHT - 138, 48, 48], 0, 5)
         beats_sub_rect = pygame.draw.rect(
@@ -239,18 +251,24 @@ if __name__ == '__main__':
         # Menu save/load
         save_buttom = pygame.draw.rect(
             screen, gray, [930, HEIGHT - 135, 100, 48], 0, 5)
-        save_text = label_font.render('Save', True, white)
-        screen.blit(save_text, (945, HEIGHT - 130))
+        # save_text = label_font.render('Save', True, white)
+        # screen.blit(save_text, (945, HEIGHT - 130))
+        screen.blit(boardSupport.icon['save'],
+                    save_buttom, (-30, -2, 100 + 30, 50))
         load_buttom = pygame.draw.rect(
             screen, gray, [930, HEIGHT - 85, 100, 48], 0, 5)
-        load_text = label_font.render('Load', True, white)
-        screen.blit(load_text, (945, HEIGHT - 80))
+        screen.blit(boardSupport.icon['load'],
+                    load_buttom, (-30, -2, 100 + 30, 50))
+        # load_text = label_font.render('Load', True, white)
+        # screen.blit(load_text, (945, HEIGHT - 80))
 
         # Limpar batidas
         clear_buttom = pygame.draw.rect(
             screen, gray, [1050, HEIGHT - 135, 100, 100], 0, 5)
-        clear_text = label_font.render('Clear', True, white)
-        screen.blit(clear_text, (1057, HEIGHT - 110))
+        screen.blit(boardSupport.icon['clear'],
+                    clear_buttom, (-5, -5, 100 + 10, 100 + 10))
+        # clear_text = label_font.render('Clear', True, white)
+        # screen.blit(clear_text, (1057, HEIGHT - 110))
 
         # handle key press states
         KeyinProcess = boardSupport.keyRelease(KeyinProcess)
@@ -323,7 +341,6 @@ if __name__ == '__main__':
                     grid.inc_beat(maxBeats)
                 elif beats_sub_rect.collidepoint(event.pos):
                     grid.dec_beat()
-
                 elif clear_buttom.collidepoint(event.pos):
                     grid.clear()
 
@@ -335,11 +352,6 @@ if __name__ == '__main__':
                 for i in range(len(instrument_rects)):
                     if instrument_rects[i].collidepoint(event.pos):
                         grid.toggle_active(i)
-
-            # elif event.type == pygame.MOUSEBUTTONUP:
-            #     if exit_buttom.collidepoint(event.pos):
-            #         save_menu = False
-            #         load_menu = False
 
         beat_length = 3600 // grid.bpm
 

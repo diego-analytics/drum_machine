@@ -69,6 +69,9 @@ class grid():
     def tick_current_beat(self):
         '''cyclicly increment current beat'''
         self.current_beat = (self.current_beat + 1) % self.beats
+        if self.current_beat == 0:
+            return True
+        return False
 
     def clear(self):
         '''clear board'''
@@ -100,6 +103,54 @@ class grid():
                 else:
                     print('_ ', end='')
                 print()
+
+
+class drumBoard():
+    def __init__(self) -> None:
+        self.current = 0
+        self.display = 0
+        self.num_patterns = 0
+        self.active = dict()
+        self.pattern = dict()
+
+    def setCurrentPattern(self, pattern):
+        self.pattern[self.current] = pattern
+
+    def getCurrentPattern(self):
+        return self.pattern[self.current]
+
+    def setDisplayPattern(self, pattern):
+        self.pattern[self.display] = pattern
+
+    def getDisplayPattern(self):
+        return self.pattern[self.display]
+
+    def isActive(self, num):
+        return self.active[num]
+
+    def add_pattern(self, pattern: grid):
+        self.pattern[self.num_patterns] = pattern
+        self.active[self.num_patterns] = False
+        self.num_patterns += 1
+
+    def toggle_active_pattern(self, num):
+        self.active[num] = not self.active[num]
+
+    def inc_current_pattern(self):
+        '''move current to succeeding active pattern'''
+        curr = self.current
+        curr = (curr + 1) % self.num_patterns
+        while curr != self.current:
+            if self.isActive(curr):
+                self.current = curr
+            else:
+                curr = (curr + 1) % self.num_patterns
+
+    def save_board(self):
+        pass
+
+    def load_board(self):
+        pass
 
 
 # images for buttons

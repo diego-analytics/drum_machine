@@ -85,35 +85,6 @@ def draw_grid(board: boardSupport.drumBoard, kit: virtual_kit.drum_kit, top):
     return boxes, top_boxes, active_patterns
 
 
-def save_to_file(grid, name='songBeat.beat'):
-    song_file = open(name, 'w')
-    meta_data = str(grid.bpm) + ' ' + str(grid.beats) + ' ' + str(grid.inst)
-    song_file.write(meta_data + '\n')
-    for inst in range(grid.inst):
-        for bt in range(grid.beats):
-            txt_val = '0'
-            if grid.grid[(inst, bt)] == True:
-                txt_val = '1'
-            song_file.write(txt_val + ' ')
-        song_file.write('\n')
-
-    song_file.close()
-
-
-def load_from_file(name='songBeat.beat', maxBeats=64):
-    song_file = open(name, 'r')
-    clicked = [[-1 for _ in range(maxBeats)] for _ in range(kit.num_insts)]
-    values = song_file.readline().split(' ')
-    bpm, beats, insts = int(values[0]), int(values[1]), int(values[2])
-
-    for inst in range(kit.num_insts):
-        beatlist = song_file.readline()
-        clicked[inst] = [int(val) for val in beatlist.split(' ')[0:-1]]
-
-    song_file.close()
-    return (bpm, insts, beats, clicked)
-
-
 def file_dialog(title):
     '''utilize the pygame GUI file dialog UI window to return filename'''
     clock = pygame.time.Clock()
@@ -171,7 +142,7 @@ if __name__ == '__main__':
     WIDTH, HEIGHT = 1300, 650
 
     screen = pygame.display.set_mode([WIDTH, HEIGHT])
-    pygame.display.set_caption('Drummy 1.5')
+    pygame.display.set_caption('Drummy 2.0')
     label_font = pygame.font.Font('robotomono.ttf', 24)
     medium_font = pygame.font.Font('robotomono.ttf', 22)
 
@@ -179,8 +150,8 @@ if __name__ == '__main__':
     timer = pygame.time.Clock()
 
     # load drum kit
-    kit = virtual_kit.load_Couch_Kit()
-    # kit = virtual_kit.load_YamahaRm50()
+    # kit = virtual_kit.load_Couch_Kit()
+    kit = virtual_kit.load_YamahaRm50()
 
     total_patterns = 10
     board = boardSupport.drumBoard()
@@ -335,16 +306,19 @@ if __name__ == '__main__':
         boxes, sel_boxes, active_patterns = draw_grid(board, kit, top)
 
         if save_menu:
+            save_menu = False
             file_name = file_dialog('Save File')
             if file_name != '':
-                save_to_file(grid, file_name)
-            save_menu = False
+                board.save_board(file_name)
+                # save_to_file(grid, file_name)
         if load_menu:
+            load_menu = False
             file_name = file_dialog('Load File')
             if file_name != '':
-                (bpm, insts, beats, clicked) = load_from_file(file_name)
-                grid.load(bpm, insts, beats, clicked)
-            load_menu = False
+                board.load_board(file_name)
+                # (bpm, insts, beats, clicked) = load_from_file(file_name)
+                # grid.load(bpm, insts, beats, clicked)
+                board.current = 0
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

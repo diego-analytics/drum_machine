@@ -50,6 +50,9 @@ class drum_kit():
 
 
 def load_YamahaRm50():
+    '''Tamaha RM50 found at
+       https://freewavesamples.com/source/yamaha-rm50
+    '''
     kit = drum_kit()
     kit.add_instrument(
         'Closed Hi-Hat', get_files('YamahaRM50/Hi-Hat/Closed-Hi-Hat'))
@@ -57,7 +60,8 @@ def load_YamahaRm50():
         'Open Hi-Hat', get_files('YamahaRM50/Hi-Hat/Open-Hi-Hat'))
     kit.add_instrument('Kick', get_files('YamahaRM50/Kick/Rock-Kick'))
     kit.add_instrument('Snare', get_files('YamahaRM50/Snare/Snare-Drum'))
-    kit.add_instrument('Side-Stick', get_files('YamahaRM50/Side-Stick'))
+    sideStick = ['YamahaRM50/Side-Stick/Yamaha-RM50-Side-Stick-1.wav']
+    kit.add_instrument('Side-Stick', sideStick)
     kit.add_instrument('Hi-Tom', get_files('YamahaRM50/Toms/High-Tom'))
     kit.add_instrument('Mid-Tom', get_files('YamahaRM50/Toms/Mid-Tom'))
     kit.add_instrument('Low-Tom', get_files('YamahaRM50/Toms/Low-Tom'))
@@ -70,6 +74,9 @@ def load_YamahaRm50():
 
 
 def load_Couch_Kit():
+    '''Couch Kit package found at
+       https://soundpacks.com/free-sound-packs/couch-kit-vol-1/
+    '''
     kit = drum_kit()
     path = 'COUCH-KIT/02 ONE SHOTS/'
     closedHH = [path + 'HiHat/CKV1_HH Closed Loud.wav',

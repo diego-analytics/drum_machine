@@ -146,11 +146,53 @@ class drumBoard():
             else:
                 curr = (curr + 1) % self.num_patterns
 
-    def save_board(self):
-        pass
+    def save_board(self, filename):
+        song_file = open(filename, 'w')
+        for p in range(self.num_patterns):
+            grid = self.pattern[p]
+            ActiveChar = self.active[p]
+            meta_data = str(ActiveChar) + ',' + str(grid.bpm) + \
+                ',' + str(grid.beats) + ',' + str(grid.inst)
+            song_file.write(meta_data + '\n')
+            for inst in range(grid.inst):
+                for bt in range(grid.beats):
+                    txt_val = '0'
+                    if grid.grid[(inst, bt)] == True:
+                        txt_val = '1'
+                    song_file.write(txt_val + ' ')
+                song_file.write('\n')
 
-    def load_board(self):
-        pass
+        song_file.close()
+
+    def load_board(self, file_name):
+        file = open(file_name, 'r')
+        lines = file.readlines()
+        file.close()
+
+        self.num_patterns = 0
+        self.pattern = dict()
+        self.active = dict()
+
+        i = 0
+        while i < len(lines):
+            active, bpm, beats, tracks = lines[i][0:-1].split(',')
+            num_beats = int(beats)
+            num_tracks = int(tracks)
+            newGrid = grid(num_tracks, int(bpm), int(beats))
+            block = lines[i + 1:i + num_tracks + 1]
+
+            clicked = [[0 for _ in range(num_beats)]
+                       for _ in range(num_tracks)]
+            for cl in range(num_tracks):
+                clicked[cl] = [int(val) for val in block[cl].split(' ')[0:-1]]
+
+            newGrid.load(int(bpm), num_tracks, num_beats, clicked)
+
+            self.active[self.num_patterns] = bool(active == 'True')
+            self.pattern[self.num_patterns] = newGrid
+
+            self.num_patterns += 1
+            i += int(tracks) + 1
 
 
 # images for buttons
